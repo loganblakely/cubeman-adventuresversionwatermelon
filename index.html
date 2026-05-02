@@ -103,8 +103,26 @@
       } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-        canvas.style.width = "960px";
-        canvas.style.height = "600px";
+         const viewportWidth = window.innerWidth;
+         const viewportHeight = window.innerHeight;
+        
+         let canvasWidth = viewportWidth;
+         let canvasHeight = viewportWidth / targetAspect;
+        
+         if (canvasHeight > viewportHeight) {
+             canvasHeight = viewportHeight;
+             canvasWidth - viewportHeight * targetAspect;
+         }
+        
+         canvas.style.width = `${canvasWidth}px`;
+         canvas.style.height = `${canvasHeight}px`;
+        
+         canvas.style.marginLeft = `${(viewportWidth - canvasWidth) / 2}px`;
+         canvas.style.marginTop = `${(viewportHeight - canvasHeight) / 2}px`;
+        
+         const displayHeight = canvas.clientHeight;
+         const displayWidth = canvas.clientWidth;
+        
       }
 
       loadingBar.style.display = "block";
